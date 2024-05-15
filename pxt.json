@@ -3,7 +3,8 @@
     "description": "",
     "dependencies": {
         "device": "*",
-        "sprite-scaling": "*"
+        "sprite-scaling": "*",
+        "arcade-text": "github:microsoft/arcade-text#v1.3.0"
     },
     "files": [
         "main.blocks",

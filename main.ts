@@ -31,6 +31,8 @@ info.onScore(100, function () {
 })
 info.onScore(150, function () {
     effects.confetti.startScreenEffect(2000)
+    info.changeLifeBy(1)
+    music.play(music.createSong(assets.song`Upgrade`), music.PlaybackMode.InBackground)
 })
 info.onLifeZero(function () {
     music.stopAllSounds()
@@ -41,6 +43,8 @@ info.onLifeZero(function () {
 })
 info.onScore(50, function () {
     effects.confetti.startScreenEffect(2000)
+    info.changeLifeBy(1)
+    music.play(music.createSong(assets.song`Upgrade`), music.PlaybackMode.InBackground)
 })
 sprites.onOverlap(SpriteKind.Projectile, SpriteKind.Enemy, function (sprite, otherSprite) {
     otherSprite.destroy(effects.fire, 500)
