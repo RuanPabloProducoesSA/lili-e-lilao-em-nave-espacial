@@ -2,13 +2,22 @@ namespace SpriteKind {
     export const logo = SpriteKind.create()
     export const Créditos = SpriteKind.create()
     export const Ready = SpriteKind.create()
+    export const Bubble = SpriteKind.create()
 }
 info.onScore(250, function () {
     music.play(music.createSong(assets.song`Parabéns`), music.PlaybackMode.InBackground)
+    info.changeLifeBy(2)
     effects.confetti.startScreenEffect(2000)
 })
 controller.A.onEvent(ControllerButtonEvent.Pressed, function () {
     projectile = sprites.createProjectileFromSprite(assets.image`tiro`, SpacePlane, 200, 0)
+    animation.runImageAnimation(
+    projectile,
+    assets.animation`tiro animation`,
+    500,
+    true
+    )
+    projectile.startEffect(effects.fire)
 })
 info.onScore(30, function () {
     effects.confetti.startScreenEffect(2000)
@@ -19,19 +28,30 @@ sprites.onOverlap(SpriteKind.Player, SpriteKind.Enemy, function (sprite2, otherS
     info.changeLifeBy(-1)
     animation.runImageAnimation(
     SpacePlane,
-    assets.animation`Lili e Lilão recebendo ataque`,
+    assets.animation`lili e lilão recebendo dano`,
     100,
     false
     )
-    music.play(music.createSong(assets.song`Dano`), music.PlaybackMode.UntilDone)
+    music.play(music.createSong(assets.song`dano`), music.PlaybackMode.UntilDone)
 })
 info.onScore(100, function () {
     music.play(music.createSong(assets.song`Parabéns`), music.PlaybackMode.InBackground)
     effects.confetti.startScreenEffect(2000)
 })
+sprites.onOverlap(SpriteKind.Player, SpriteKind.Food, function (sprite2, otherSprite2) {
+    otherSprite2.destroy()
+    info.changeLifeBy(1)
+    animation.runImageAnimation(
+    SpacePlane,
+    assets.animation`Lili e Lilão recebendo mais uma vida`,
+    100,
+    false
+    )
+    music.play(music.createSong(assets.song`vida sound`), music.PlaybackMode.UntilDone)
+})
 info.onScore(150, function () {
     effects.confetti.startScreenEffect(2000)
-    info.changeLifeBy(1)
+    info.changeLifeBy(2)
     music.play(music.createSong(assets.song`Upgrade`), music.PlaybackMode.InBackground)
 })
 info.onLifeZero(function () {
@@ -55,6 +75,7 @@ sprites.onOverlap(SpriteKind.Projectile, SpriteKind.Enemy, function (sprite, oth
 let Metoro: Sprite = null
 let Alien: Sprite = null
 let Inimigo: Sprite = null
+let life: Sprite = null
 let projectile: Sprite = null
 let SpacePlane: Sprite = null
 scene.setBackgroundImage(assets.image`Fundo de espaço`)
@@ -106,11 +127,25 @@ game.showLongText("Clique no A/Espaço pra iniciar", DialogLayout.Bottom)
 sprites.destroy(logo2)
 sprites.destroy(Créditoss)
 music.play(music.createSong(assets.song`Comecou`), music.PlaybackMode.InBackground)
+effects.starField.startScreenEffect()
 SpacePlane = sprites.create(assets.image`Lili e Lilão`, SpriteKind.Player)
 SpacePlane.setPosition(23, 61)
 controller.moveSprite(SpacePlane, 80, 80)
 SpacePlane.setStayInScreen(true)
 info.setLife(5)
+game.onUpdateInterval(7500, function () {
+    life = sprites.create(assets.image`vida`, SpriteKind.Food)
+    animation.runImageAnimation(
+    life,
+    assets.animation`vida animation`,
+    500,
+    true
+    )
+    life.setVelocity(-140, 0)
+    life.setPosition(160, randint(5, 115))
+    life.setFlag(SpriteFlag.AutoDestroy, true)
+    life.startEffect(effects.confetti)
+})
 game.onUpdateInterval(1000, function () {
     Inimigo = sprites.create(img`
         ....................
