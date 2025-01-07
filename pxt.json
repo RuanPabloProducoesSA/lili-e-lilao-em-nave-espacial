@@ -1,5 +1,6 @@
 {
     "name": "Lili e Lilão em Nave Espacial",
+    "version": "0.1.0",
     "description": "",
     "dependencies": {
         "device": "*",
