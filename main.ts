@@ -81,6 +81,7 @@ let projectile: Sprite = null
 let SpacePlane: Sprite = null
 let intro = sprites.create(assets.image`logo ntro`, SpriteKind.logointro)
 intro.changeScale(0.8, ScaleAnchor.Middle)
+pause(100)
 music.play(music.createSong(assets.song`intro music`), music.PlaybackMode.UntilDone)
 sprites.destroy(intro)
 scene.setBackgroundImage(assets.image`Fundo de espaço`)
