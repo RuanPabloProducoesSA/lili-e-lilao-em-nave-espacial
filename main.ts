@@ -3,6 +3,7 @@ namespace SpriteKind {
     export const Créditos = SpriteKind.create()
     export const Ready = SpriteKind.create()
     export const Bubble = SpriteKind.create()
+    export const logointro = SpriteKind.create()
 }
 info.onScore(250, function () {
     music.play(music.createSong(assets.song`Parabéns`), music.PlaybackMode.InBackground)
@@ -78,6 +79,10 @@ let Inimigo: Sprite = null
 let life: Sprite = null
 let projectile: Sprite = null
 let SpacePlane: Sprite = null
+let intro = sprites.create(assets.image`logo ntro`, SpriteKind.logointro)
+intro.changeScale(0.8, ScaleAnchor.Middle)
+music.play(music.createSong(assets.song`intro music`), music.PlaybackMode.UntilDone)
+sprites.destroy(intro)
 scene.setBackgroundImage(assets.image`Fundo de espaço`)
 let logo2 = sprites.create(assets.image`Logo - Lili e Lilão em Nave Espacial`, SpriteKind.logo)
 let Créditoss = sprites.create(img`
